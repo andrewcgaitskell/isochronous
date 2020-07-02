@@ -41,11 +41,49 @@ int main(int argc, char*argv[])
     return 1;
   }
   
+  transfer = libusb_alloc_transfer(200);
+	
+	
   /* Shutdown libusb. */
   libusb_exit(0);
 
   return 0;
 }
+
+static struct libusb_transfer *alloc_capture_transfer(void)
+{
+    struct libusb_transfer *transfer = libusb_alloc_transfer(200);
+    int i;
+
+    if (!transfer)
+        die("transfer alloc failure");
+   
+    msg("setting transfer parameters");
+   
+    transfer->dev_handle = handle;
+    transfer->endpoint = 0x82;
+    transfer->type = LIBUSB_TRANSFER_TYPE_ISOCHRONOUS;
+    transfer->timeout = 5000;
+    transfer->buffer = malloc(1024);
+    transfer->length = 1024;
+    transfer->callback = capture_callback;
+    transfer->num_iso_packets = 200;
+   
+    msg("filling transfer descriptors");
+   
+    for (i = 0; i < 8; i++) {
+        struct libusb_iso_packet_descriptor *desc =
+            &transfer->iso_packet_desc[i];
+        desc->length = 64;
+    }
+   
+    msg("returning transfer structure");
+   
+    return transfer;
+}
+
+//+++++++++++++++++++++++++++++++++++++++
+
 /* https://vovkos.github.io/doxyrest/samples/libusb/group_libusb_asyncio.html?highlight=isochronous */
 
 /*
