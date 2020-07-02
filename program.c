@@ -16,6 +16,8 @@ int main(int argc, char*argv[])
   int numBytes                 = 0;  /* Actual bytes transferred. */
   uint8_t buffer[64];                /* 64 byte transfer buffer */
 
+  struct libusb_transfer *transfer = NULL;
+	
   /* Initialise libusb. */
   res = libusb_init(0);
   if (res != 0)
@@ -50,6 +52,7 @@ int main(int argc, char*argv[])
   return 0;
 }
 
+/*
 static struct libusb_transfer *alloc_capture_transfer(void)
 {
     struct libusb_transfer *transfer = libusb_alloc_transfer(200);
@@ -81,6 +84,8 @@ static struct libusb_transfer *alloc_capture_transfer(void)
    
     return transfer;
 }
+*/
+
 
 //+++++++++++++++++++++++++++++++++++++++
 
