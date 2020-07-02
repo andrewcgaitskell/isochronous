@@ -31,6 +31,9 @@ int main(int argc, char*argv[])
    * idProduct              : 0x1529
    */
   handle = libusb_open_device_with_vid_pid(0, 0x0c76, 0x1529);
+  
+  printf(handle)
+  
   if (!handle)
   {
     fprintf(stderr, "Unable to open device.\n");
