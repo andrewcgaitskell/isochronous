@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <libusb-1.0/libusb.h>
+#include <stdint.h>
+#include <string.h>
+#include <stddef.h>
+
 char *test (void);
 
 // typedefs
