@@ -1,5 +1,7 @@
 int x;
-#include "variables.h"
+//#include "variables.h"
+
+char *test (void);
 
 int main (void) {
    puts (test ());
