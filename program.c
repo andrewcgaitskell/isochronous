@@ -68,6 +68,7 @@ libusb_alloc_transfer(int iso_packets)*/
 
 /* Filling */
 
+/*
 static struct libusb_transfer *alloc_capture_transfer(void)
 {
     struct libusb_transfer *transfer = libusb_alloc_transfer(200);
@@ -99,6 +100,7 @@ static struct libusb_transfer *alloc_capture_transfer(void)
    
     return transfer;
 }
+*/
 
 ////transfer = alloc_capture_transfer();
 
