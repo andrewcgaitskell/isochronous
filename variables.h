@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stddef.h>
 
-char *test (void);
-
 // typedefs
 
 typedef void (*libusb_transfer_cb_fn)(struct libusb_transfer *transfer);
