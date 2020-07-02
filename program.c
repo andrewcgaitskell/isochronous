@@ -59,11 +59,11 @@ static struct libusb_transfer *alloc_capture_transfer(void)
     return transfer;
 }
 
-transfer = alloc_capture_transfer;
+transfer = alloc_capture_transfer();
 
 /* Submission */
 
-libusb_submit_transfer(transfer);
+res = libusb_submit_transfer(transfer);
 
 /* Completion handling */
 
@@ -107,6 +107,60 @@ libusb_fill_bulk_transfer(
 //} else {
 //    error();
 //}
+
+/*
+static int benchmark_in(uint8_t ep)
+{
+	static uint8_t buf[2048];
+	static struct libusb_transfer *xfr;
+	int num_iso_pack = 0;
+
+	if (ep == EP_ISO_IN)
+		num_iso_pack = 16;
+
+	xfr = libusb_alloc_transfer(num_iso_pack);
+	if (!xfr)
+		return -ENOMEM;
+
+	if (ep == EP_ISO_IN) {
+		libusb_fill_iso_transfer(xfr, devh, ep, buf,
+				sizeof(buf), num_iso_pack, cb_xfr, NULL, 0);
+		libusb_set_iso_packet_lengths(xfr, sizeof(buf)/num_iso_pack);
+	} else
+		libusb_fill_bulk_transfer(xfr, devh, ep, buf,
+				sizeof(buf), cb_xfr, NULL, 0);
+
+	gettimeofday(&tv_start, NULL);
+
+	 NOTE: To reach maximum possible performance the program must
+	 * submit *multiple* transfers here, not just one.
+	 *
+	 * When only one transfer is submitted there is a gap in the bus
+	 * schedule from when the transfer completes until a new transfer
+	 * is submitted by the callback. This causes some jitter for
+	 * isochronous transfers and loss of throughput for bulk transfers.
+	 *
+	 * This is avoided by queueing multiple transfers in advance, so
+	 * that the host controller is always kept busy, and will schedule
+	 * more transfers on the bus while the callback is running for
+	 * transfers which have completed on the bus.
+	 
+
+	return libusb_submit_transfer(xfr);
+}
+*/
+
+
+
+static int alloc_transfers(void)
+{
+	img_transfer = libusb_alloc_transfer(0);
+	if (!img_transfer)
+		return -ENOMEM;
+	libusb_fill_bulk_transfer(img_transfer, devh, EP_DATA, imgbuf,
+		sizeof(imgbuf), cb_img, NULL, 0);
+	return 0;
+}
 
 /* Deallocation */
 
