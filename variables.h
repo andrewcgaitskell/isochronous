@@ -4,8 +4,7 @@
 #include <string.h>
 #include <stddef.h>
 
-//char *test (void);
-char test (void);
+char *test (void);
 
 // typedefs
 
