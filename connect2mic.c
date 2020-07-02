@@ -88,7 +88,7 @@ int main(int argc, char*argv[])
     )  
   */
   
-  printf(ps);
+  // printf(ps);
 
   /* Release interface #0. */
   res = libusb_release_interface(handle,1);
