@@ -2,9 +2,50 @@
 #include <libusb-1.0/libusb.h>
 #include <stdint.h>
 #include <string.h>
-
 #include "variables.h"
 
+//void processMessage(const uint8_t*);
+
+
+/*----------------------------------------------------------------------*/
+int main(int argc, char*argv[])
+{
+  int res                      = 0;  /* return codes from libusb functions */
+  libusb_device_handle* handle = 0;  /* handle for USB device */
+  int kernelDriverDetached     = 0;  /* Set to 1 if kernel driver detached */
+  int numBytes                 = 0;  /* Actual bytes transferred. */
+  uint8_t buffer[64];                /* 64 byte transfer buffer */
+
+  /* Initialise libusb. */
+  res = libusb_init(0);
+  if (res != 0)
+  {
+    fprintf(stderr, "Error initialising libusb.\n");
+    return 1;
+  }
+
+  /* Get the first device with the matching Vendor ID and Product ID. If
+   * intending to allow multiple demo boards to be connected at once, you
+   * will need to use libusb_get_device_list() instead. Refer to the libusb
+   * documentation for details.
+   * idVendor               : 0x0c76
+   * idProduct              : 0x1529
+   */
+  handle = libusb_open_device_with_vid_pid(0, 0x0c76, 0x1529);
+  
+  //fprintf(handle);
+  
+  if (!handle)
+  {
+    fprintf(stderr, "Unable to open device.\n");
+    return 1;
+  }
+  
+  /* Shutdown libusb. */
+  libusb_exit(0);
+
+  return 0;
+}
 /* https://vovkos.github.io/doxyrest/samples/libusb/group_libusb_asyncio.html?highlight=isochronous */
 
 /*
@@ -59,11 +100,11 @@ static struct libusb_transfer *alloc_capture_transfer(void)
     return transfer;
 }
 
-transfer = alloc_capture_transfer();
+////transfer = alloc_capture_transfer();
 
 /* Submission */
 
-res = libusb_submit_transfer(transfer);
+////res = libusb_submit_transfer(transfer);
 
 /* Completion handling */
 
@@ -149,8 +190,8 @@ static int benchmark_in(uint8_t ep)
 	return libusb_submit_transfer(xfr);
 }
 */
-
-
+ 
+/***
 
 static int alloc_transfers(void)
 {
@@ -162,31 +203,36 @@ static int alloc_transfers(void)
 	return 0;
 }
 
+***/
+
+
 /* Deallocation */
 
 
-/* function declaration */
+/* function declaration
 int max(int num1, int num2);
  
 int main () {
 
-   /* local variable definition */
+   //local variable definition
    int a = 100;
    int b = 200;
    int ret;
  
-   /* calling a function to get max value */
+   //calling a function to get max value
    ret = max(a, b);
  
    printf( "Max value is : %d\n", ret );
  
    return 0;
 }
- 
-/* function returning the max between two numbers */
+*/
+
+// function returning the max between two numbers
+/*
 int max(int num1, int num2) {
 
-   /* local variable declaration */
+   // local variable declaration
    int result;
  
    if (num1 > num2)
@@ -196,3 +242,4 @@ int max(int num1, int num2) {
  
    return result; 
 }
+*/
