@@ -1,3 +1,4 @@
+#include <stdio.h>
 
 /* function declaration */
 int max(int num1, int num2);
