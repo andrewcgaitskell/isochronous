@@ -1,4 +1,9 @@
 #include <stdio.h>
+#include <libusb-1.0/libusb.h>
+#include <stdint.h>
+#include <string.h>
+
+#include variables.h
 
 /* function declaration */
 int max(int num1, int num2);
