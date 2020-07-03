@@ -85,6 +85,16 @@ int main(int argc, char*argv[])
 
   res = libusb_submit_transfer(transfer);
 
+  /* Handle Events */
+  while (!completed)
+  {
+    rc = libusb_handle_events_completed(NULL, &completed);
+    if (rc != LIBUSB_SUCCESS)
+    {
+      fprintf(stderr, "Transfer Error: %s\n", libusb_error_name(rc));
+      break;
+    }
+  }	
   /* Completion handling */
   
   libusb_fill_iso_transfer(
