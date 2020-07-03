@@ -14,6 +14,7 @@ int main(int argc, char*argv[])
   int res                      = 0;  /* return codes from libusb functions */
   int i                      = 0;  /* counter */
   int rc;
+  int completed = 0;
   libusb_device_handle* handle = 0;  /* handle for USB device */
   int kernelDriverDetached     = 0;  /* Set to 1 if kernel driver detached */
   int numBytes                 = 0;  /* Actual bytes transferred. */
