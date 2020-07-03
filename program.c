@@ -16,7 +16,7 @@ int main(int argc, char*argv[])
   int kernelDriverDetached     = 0;  /* Set to 1 if kernel driver detached */
   int numBytes                 = 0;  /* Actual bytes transferred. */
   uint8_t buffer[64];                /* 64 byte transfer buffer */
-  char str[]                   = "";
+  char msgstr[100]                   = "";
   //struct libusb_transfer *transfer = NULL;
 	
   /* Initialise libusb. */
@@ -54,9 +54,8 @@ int main(int argc, char*argv[])
       str[] = "transfer alloc failure";
       printf("%s\n", str);
 	
-   
-  str[] = "setting transfer parameters";
-  printf("%s\n", str);
+  strcpy(msgstr,"setting transfer parameters");
+  printf("%s\n", msgstr);
    
   transfer->dev_handle = handle;
   transfer->endpoint = 0x82;
@@ -66,8 +65,8 @@ int main(int argc, char*argv[])
   transfer->length = 1024;
   transfer->callback = capture_callback;
   transfer->num_iso_packets = 200;
-  str = "start filling transfer descriptors";
-  printf("%s\n", str);
+  strcpy(msgstr,"start filling transfer descriptors");
+  printf("%s\n", msgstr);
    
   for (i = 0; i < 8; i++) {
       struct libusb_iso_packet_descriptor *desc =
@@ -75,8 +74,8 @@ int main(int argc, char*argv[])
         desc->length = 64;
     }
   
-  str[] = "finished filling transfer descriptors";
-  printf("%s\n", str);
+  strcpy(msgstr,"finished filling transfer descriptors");
+  printf("%s\n", msgstr);
     
    /* Shutdown libusb. */
   libusb_exit(0);
