@@ -51,9 +51,12 @@ int main(int argc, char*argv[])
   int i;
 
   if (!transfer)
-	  die("transfer alloc failure");
+      char str[] = "transfer alloc failure";
+      printf("%s\n", str);
+	
    
-  msg("setting transfer parameters");
+  char str[] = "setting transfer parameters";
+  printf("%s\n", str);
    
   transfer->dev_handle = handle;
   transfer->endpoint = 0x82;
@@ -63,8 +66,8 @@ int main(int argc, char*argv[])
   transfer->length = 1024;
   transfer->callback = capture_callback;
   transfer->num_iso_packets = 200;
-  
-  msg("start filling transfer descriptors");
+  char str[] = "start filling transfer descriptors";
+  printf("%s\n", str);
    
   for (i = 0; i < 8; i++) {
       struct libusb_iso_packet_descriptor *desc =
@@ -72,7 +75,8 @@ int main(int argc, char*argv[])
         desc->length = 64;
     }
   
-  msg("finished filling transfer descriptors");
+  char str[] = "finished filling transfer descriptors";
+  printf("%s\n", str);
     
    /* Shutdown libusb. */
   libusb_exit(0);
