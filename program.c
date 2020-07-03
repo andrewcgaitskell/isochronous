@@ -51,8 +51,8 @@ int main(int argc, char*argv[])
   int i;
 
   if (!transfer)
-      str[] = "transfer alloc failure";
-      printf("%s\n", str);
+      strcpy(msgstr,"transfer alloc failure");
+      printf("%s\n", msgstr);
 	
   strcpy(msgstr,"setting transfer parameters");
   printf("%s\n", msgstr);
