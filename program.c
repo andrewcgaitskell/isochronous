@@ -112,7 +112,12 @@ int main(int argc, char*argv[])
     unsigned int timeout
     );
     */
-	
+
+   // Print the output of the buffer as Hexadecimal values:
+    for (int i = 0; i < 1024; i++) {
+        printf("%02x ", buffer[i] & 0xff);
+        }
+    printf("\n");
 
    /* Shutdown libusb. */
   libusb_exit(0);
