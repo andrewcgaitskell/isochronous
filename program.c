@@ -48,7 +48,7 @@ int main(int argc, char*argv[])
 	
   struct libusb_transfer *transfer = libusb_alloc_transfer(200);
   
-  int i;
+  libusb_transfer_cb_fn capture_callback;
 
   if (!transfer)
       strcpy(msgstr,"transfer alloc failure");
@@ -65,6 +65,7 @@ int main(int argc, char*argv[])
   transfer->length = 1024;
   transfer->callback = capture_callback;
   transfer->num_iso_packets = 200;
+	
   strcpy(msgstr,"start filling transfer descriptors");
   printf("%s\n", msgstr);
    
