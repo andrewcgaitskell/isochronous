@@ -16,6 +16,7 @@ int main(int argc, char*argv[])
   libusb_device_handle* handle = 0;  /* handle for USB device */
   int kernelDriverDetached     = 0;  /* Set to 1 if kernel driver detached */
   int numBytes                 = 0;  /* Actual bytes transferred. */
+  int length = 0;
   uint8_t buffer[64];                /* 64 byte transfer buffer */
   char msgstr[100]                   = "";
   //struct libusb_transfer *transfer = NULL;
@@ -86,6 +87,18 @@ int main(int argc, char*argv[])
 
   /* Completion handling */
   
+  res = libusb_fill_iso_transfer(
+    transfer , //struct libusb_transfer* transfer,
+    handle, //libusb_device_handle* dev_handle,
+    0x82, // unsigned char endpoint,
+    buffer, // unsigned char* buffer,
+    1024, //int length,
+    200, //int num_iso_packets,
+    capture_callback, // libusb_transfer_cb_fn callback,
+    &transfer, // void* user_data,
+    5000 // unsigned int timeout
+    );	
+
   /*
   res = libusb_fill_iso_transfer(
     struct libusb_transfer* transfer,
