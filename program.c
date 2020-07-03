@@ -87,7 +87,7 @@ int main(int argc, char*argv[])
 
   /* Completion handling */
   
-  res = libusb_fill_iso_transfer(
+  libusb_fill_iso_transfer(
     transfer , //struct libusb_transfer* transfer,
     handle, //libusb_device_handle* dev_handle,
     0x82, // unsigned char endpoint,
