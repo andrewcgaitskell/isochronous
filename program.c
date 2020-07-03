@@ -78,7 +78,29 @@ int main(int argc, char*argv[])
   
   strcpy(msgstr,"finished filling transfer descriptors");
   printf("%s\n", msgstr);
-    
+  
+	
+  /* Submission */
+
+  res = libusb_submit_transfer(transfer);
+
+  /* Completion handling */
+  
+  /*
+  res = libusb_fill_iso_transfer(
+    struct libusb_transfer* transfer,
+    libusb_device_handle* dev_handle,
+    unsigned char endpoint,
+    unsigned char* buffer,
+    int length,
+    int num_iso_packets,
+    libusb_transfer_cb_fn callback,
+    void* user_data,
+    unsigned int timeout
+    );
+    */
+	
+
    /* Shutdown libusb. */
   libusb_exit(0);
 
