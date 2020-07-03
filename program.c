@@ -16,7 +16,7 @@ int main(int argc, char*argv[])
   int numBytes                 = 0;  /* Actual bytes transferred. */
   uint8_t buffer[64];                /* 64 byte transfer buffer */
 
-  struct libusb_transfer *transfer = NULL;
+  //struct libusb_transfer *transfer = NULL;
 	
   /* Initialise libusb. */
   res = libusb_init(0);
@@ -43,10 +43,37 @@ int main(int argc, char*argv[])
     return 1;
   }
   
-  transfer = libusb_alloc_transfer(200);
+  //transfer = libusb_alloc_transfer(200);
 	
-	
-  /* Shutdown libusb. */
+  struct libusb_transfer *transfer = libusb_alloc_transfer(200);
+  
+  int i;
+
+  if (!transfer)
+	  die("transfer alloc failure");
+   
+  msg("setting transfer parameters");
+   
+  transfer->dev_handle = handle;
+  transfer->endpoint = 0x82;
+  transfer->type = LIBUSB_TRANSFER_TYPE_ISOCHRONOUS;
+  transfer->timeout = 5000;
+  transfer->buffer = malloc(1024);
+  transfer->length = 1024;
+  transfer->callback = capture_callback;
+  transfer->num_iso_packets = 200;
+  
+  msg("start filling transfer descriptors");
+   
+  for (i = 0; i < 8; i++) {
+      struct libusb_iso_packet_descriptor *desc =
+            &transfer->iso_packet_desc[i];
+        desc->length = 64;
+    }
+  
+  msg("finished filling transfer descriptors");
+    
+   /* Shutdown libusb. */
   libusb_exit(0);
 
   return 0;
