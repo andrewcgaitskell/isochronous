@@ -51,11 +51,11 @@ int main(int argc, char*argv[])
   int i;
 
   if (!transfer)
-      str = "transfer alloc failure";
+      str[] = "transfer alloc failure";
       printf("%s\n", str);
 	
    
-  str = "setting transfer parameters";
+  str[] = "setting transfer parameters";
   printf("%s\n", str);
    
   transfer->dev_handle = handle;
@@ -75,7 +75,7 @@ int main(int argc, char*argv[])
         desc->length = 64;
     }
   
-  str = "finished filling transfer descriptors";
+  str[] = "finished filling transfer descriptors";
   printf("%s\n", str);
     
    /* Shutdown libusb. */
